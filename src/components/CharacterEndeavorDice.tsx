@@ -2,13 +2,15 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useCharacter } from "./CharacterContext";
-import { VerticalAlignCenter } from "@mui/icons-material";
 
 const CharacterEndeavorDice = () => {
-  const { character, updateCharacter } = useCharacter();
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter] || {};
+
   const theme = useTheme(); // Access theme colors globally
+
   const handleClick = (value: number) => {
-    let newValue = character.endeavorDice;
+    let newValue = character.endeavorDice || 0;
 
     if (value === 1) {
       if (newValue === 1) {
@@ -22,15 +24,19 @@ const CharacterEndeavorDice = () => {
       newValue = value; // Clicking 2 or 3 sets it directly
     }
 
-    updateCharacter({ endeavorDice: newValue });
+    updateCharacter(activeCharacter, { endeavorDice: newValue });
   };
+
+  if (!character || !character.traits) {
+    return <div>Loading character...</div>; // Handle missing data gracefully
+  }
 
   return (
     <Box
       sx={{
         display: "flex",
-        alignItems: "center", // ? Centers vertically
-        justifyContent: "center", // ? Centers horizontally
+        alignItems: "center", // Centers vertically
+        justifyContent: "center", // Centers horizontally
         gap: 2, // Adds spacing between "Endeavor" and the buttons
       }}
     >
@@ -41,7 +47,7 @@ const CharacterEndeavorDice = () => {
           onClick={() => handleClick(num)}
           sx={{
             color:
-              character.endeavorDice >= num
+              (character.endeavorDice || 0) >= num
                 ? theme.palette.primary.main // Green when selected
                 : theme.palette.grey[500], // Gray when not selected
           }}

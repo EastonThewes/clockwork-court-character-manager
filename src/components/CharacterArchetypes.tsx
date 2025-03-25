@@ -6,14 +6,15 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const CharacterArchetypes = () => {
-  const { character, updateCharacter } = useCharacter();
-  
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter]; // Get the active character
+
   // Ensure character.archetypes exists
   useEffect(() => {
     if (!character.archetypes) {
-      updateCharacter({ archetypes: { archetypes: [] } });
+      updateCharacter(activeCharacter, { archetypes: { archetypes: [] } });
     }
-  }, [character, updateCharacter]);
+  }, [character, activeCharacter, updateCharacter]);
 
   const archetypesList = character.archetypes?.archetypes || [];
 
@@ -22,7 +23,7 @@ const CharacterArchetypes = () => {
   const handleArchetypeChange = (index: number, field: keyof typeof newArchetype, value: string) => {
     const updatedArchetypes = [...archetypesList];
     updatedArchetypes[index] = { ...updatedArchetypes[index], [field]: value };
-    updateCharacter({ archetypes: { archetypes: updatedArchetypes } });
+    updateCharacter(activeCharacter, { archetypes: { archetypes: updatedArchetypes } });
   };
 
   const handleNewArchetypeChange = (field: keyof typeof newArchetype, value: string) => {
@@ -31,7 +32,7 @@ const CharacterArchetypes = () => {
 
   const addNewArchetype = () => {
     if (newArchetype.archetype.trim() !== "") {
-      updateCharacter({
+      updateCharacter(activeCharacter, {
         archetypes: { archetypes: [...archetypesList, newArchetype] },
       });
       setNewArchetype({ archetype: "", initiate: "", adept: "", master: "" }); // Reset input fields
@@ -40,7 +41,7 @@ const CharacterArchetypes = () => {
 
   const removeArchetype = (index: number) => {
     const updatedArchetypes = archetypesList.filter((_, i) => i !== index);
-    updateCharacter({ archetypes: { archetypes: updatedArchetypes } });
+    updateCharacter(activeCharacter, { archetypes: { archetypes: updatedArchetypes } });
   };
 
   return (

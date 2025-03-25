@@ -1,15 +1,19 @@
-import CharacterSheet from './components/CharacterSheet';
-import theme from "./theme"; // Import your custom theme
-import { ThemeProvider } from '@emotion/react';
+import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme"; // Import your theme
+import CharacterSheet from "./components/CharacterSheet";
+import { CharacterProvider } from "./components/CharacterContext";
+import CharacterAppBar from "./components/CharacterAppBar";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <ThemeProvider theme={theme}>        
+    <ThemeProvider theme={theme}>
+      <CharacterProvider>
+        <CharacterAppBar />
         <CharacterSheet />
-      </ThemeProvider>
-    </>
-  )
-}
+      </CharacterProvider>
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;

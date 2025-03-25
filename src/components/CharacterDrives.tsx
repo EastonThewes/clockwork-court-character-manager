@@ -3,13 +3,14 @@ import { TextField, Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 const CharacterDrives = () => {
-  const { character, updateCharacter } = useCharacter();
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter]; // Get the active character
 
   const handleChange = (key: "drives" | "troubles", index: number, value: string) => {
     const updatedArray = [...character.aspect[key]];
     updatedArray[index] = value;
 
-    updateCharacter({
+    updateCharacter(activeCharacter, {
       aspect: {
         ...character.aspect,
         [key]: updatedArray,
@@ -17,8 +18,12 @@ const CharacterDrives = () => {
     });
   };
 
+  if (!character || !character.traits) {
+    return <div>Loading character...</div>; // Handle missing data gracefully
+  }
+
   return (
-    <Grid container spacing={2} sx={{ height: "100%" }}>
+    <Grid container spacing={1} sx={{ height: "100%" }}>
       {/* Drives */}
       <Grid size={12} sx={{ display: "flex", flexDirection: "column", height: "50%" }}>
         <Typography variant="h6">Drives</Typography>
@@ -30,7 +35,7 @@ const CharacterDrives = () => {
               value={character.aspect.drives[index] || ""}
               placeholder={`Drive ${index + 1}`}
               fullWidth
-              sx={{ height: "2.5rem", "& .MuiInputBase-root": { height: "100%" } }}
+              sx={{ height: "2rem", "& .MuiInputBase-root": { height: "100%" } }}
             />
           ))}
         </Box>
@@ -47,7 +52,7 @@ const CharacterDrives = () => {
               value={character.aspect.troubles[index] || ""}
               placeholder={`Trouble ${index + 1}`}
               fullWidth
-              sx={{ height: "2.5rem", "& .MuiInputBase-root": { height: "100%" } }}
+              sx={{ height: "2rem", "& .MuiInputBase-root": { height: "100%" } }}
             />
           ))}
         </Box>

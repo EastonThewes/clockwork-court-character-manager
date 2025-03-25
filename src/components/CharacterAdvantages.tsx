@@ -6,14 +6,15 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const CharacterAdvantages = () => {
-  const { character, updateCharacter } = useCharacter();
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter] || {};
 
   // Ensure character.advantages exists
   useEffect(() => {
     if (!character.advantages) {
-      updateCharacter({ advantages: { advantages: [] } });
+      updateCharacter(activeCharacter, { advantages: { advantages: [] } });
     }
-  }, [character, updateCharacter]);
+  }, [character, activeCharacter, updateCharacter]);
 
   const advantagesList = character.advantages?.advantages || [];
 
@@ -22,7 +23,7 @@ const CharacterAdvantages = () => {
   const handleAdvantageChange = (index: number, field: keyof typeof newAdvantage, value: string) => {
     const updatedAdvantages = [...advantagesList];
     updatedAdvantages[index] = { ...updatedAdvantages[index], [field]: value };
-    updateCharacter({ advantages: { advantages: updatedAdvantages } });
+    updateCharacter(activeCharacter, { advantages: { advantages: updatedAdvantages } });
   };
 
   const handleNewAdvantageChange = (field: keyof typeof newAdvantage, value: string) => {
@@ -31,7 +32,7 @@ const CharacterAdvantages = () => {
 
   const addNewAdvantage = () => {
     if (newAdvantage.name.trim() !== "") {
-      updateCharacter({
+      updateCharacter(activeCharacter, {
         advantages: { advantages: [...advantagesList, newAdvantage] },
       });
       setNewAdvantage({ name: "", description: "" }); // Reset input fields
@@ -40,8 +41,12 @@ const CharacterAdvantages = () => {
 
   const removeAdvantage = (index: number) => {
     const updatedAdvantages = advantagesList.filter((_, i) => i !== index);
-    updateCharacter({ advantages: { advantages: updatedAdvantages } });
+    updateCharacter(activeCharacter, { advantages: { advantages: updatedAdvantages } });
   };
+
+  if (!character || !character.traits) {
+    return <div>Loading character...</div>; // Handle missing data gracefully
+  }
 
   return (
     <Box sx={{ maxHeight: "300px", overflow: "auto", padding: 1 }}>

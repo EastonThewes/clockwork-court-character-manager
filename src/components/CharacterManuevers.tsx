@@ -6,14 +6,15 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const CharacterManeuvers = () => {
-  const { character, updateCharacter } = useCharacter();
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter]; // Get the active character
 
   // Ensure character.manueversInvocations exists
   useEffect(() => {
     if (!character.manueversInvocations) {
-      updateCharacter({ manueversInvocations: { manueversInvocations: [] } });
+      updateCharacter(activeCharacter, { manueversInvocations: { manueversInvocations: [] } });
     }
-  }, [character, updateCharacter]);
+  }, [character, activeCharacter, updateCharacter]);
 
   const maneuversList = character.manueversInvocations?.manueversInvocations || [];
 
@@ -22,7 +23,7 @@ const CharacterManeuvers = () => {
   const handleManeuverChange = (index: number, field: keyof typeof newManeuver, value: string) => {
     const updatedManeuvers = [...maneuversList];
     updatedManeuvers[index] = { ...updatedManeuvers[index], [field]: value };
-    updateCharacter({ manueversInvocations: { manueversInvocations: updatedManeuvers } });
+    updateCharacter(activeCharacter, { manueversInvocations: { manueversInvocations: updatedManeuvers } });
   };
 
   const handleNewManeuverChange = (field: keyof typeof newManeuver, value: string) => {
@@ -31,7 +32,7 @@ const CharacterManeuvers = () => {
 
   const addNewManeuver = () => {
     if (newManeuver.name.trim() !== "") {
-      updateCharacter({
+      updateCharacter(activeCharacter, {
         manueversInvocations: { manueversInvocations: [...maneuversList, newManeuver] },
       });
       setNewManeuver({ name: "", roll: "", action: "", description: "" }); // Reset input fields
@@ -40,7 +41,7 @@ const CharacterManeuvers = () => {
 
   const removeManeuver = (index: number) => {
     const updatedManeuvers = maneuversList.filter((_, i) => i !== index);
-    updateCharacter({ manueversInvocations: { manueversInvocations: updatedManeuvers } });
+    updateCharacter(activeCharacter, { manueversInvocations: { manueversInvocations: updatedManeuvers } });
   };
 
   return (

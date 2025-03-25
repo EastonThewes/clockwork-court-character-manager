@@ -4,16 +4,21 @@ import Grid from "@mui/material/Grid2";
 import { Character } from "./CharacterModel";
 
 const CharacterHealth = () => {
-  const { character, updateCharacter } = useCharacter();
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter] || { health: {} };
 
   const handleChange = (key: keyof Character["health"], value: number) => {
-    updateCharacter({
+    updateCharacter(activeCharacter, {
       health: {
         ...character.health,
         [key]: value,
       },
     });
   };
+
+  if (!character || !character.traits) {
+    return <div>Loading character...</div>; // Handle missing data gracefully
+  }
 
   return (
     <Grid container spacing={1} sx={{ height: "100%", alignItems: "center" }}>
@@ -22,51 +27,72 @@ const CharacterHealth = () => {
         <Grid size={5}>
           <TextField
             onChange={(e) => handleChange("wounds", +e.target.value)}
-            value={character.health.wounds}
+            value={character.health.wounds || ""}
             label="Wounds"
             type="number"
             fullWidth
-            sx={{ "& input": { textAlign: "center",  appearance: "textfield", } }}
+            sx={{
+              "& input": {
+                textAlign: "center",
+                appearance: "textfield",
+              },
+            }}
           />
         </Grid>
         <Grid size={2} sx={{ textAlign: "center" }}>
           <Typography variant="h5">/</Typography>
         </Grid>
-        <Grid  size={5}>
+        <Grid size={5}>
           <TextField
             onChange={(e) => handleChange("maxWounds", +e.target.value)}
-            value={character.health.maxWounds}
+            value={character.health.maxWounds || ""}
             label="Max Wounds"
             type="number"
             fullWidth
-            sx={{ "& input": { textAlign: "center",  appearance: "textfield", } }}
+            sx={{
+              "& input": {
+                textAlign: "center",
+                appearance: "textfield",
+              },
+            }}
           />
         </Grid>
       </Grid>
 
       {/* Bottom Row: Target Number & Wound Check */}
-      <Grid container  spacing={1}>
-        <Grid  size={6}>
+      <Grid container spacing={1}>
+        <Grid size={6}>
           <TextField
-            onChange={(e) => updateCharacter({ targetNumber: +e.target.value })}
-            value={character.targetNumber}
+            onChange={(e) =>
+              updateCharacter(activeCharacter, {
+                targetNumber: +e.target.value,
+              })
+            }
+            value={character.targetNumber || ""}
             label="Target Number"
             type="number"
             fullWidth
-            sx={{ "& input": { textAlign: "center",  appearance: "textfield", } }}
+            sx={{
+              "& input": {
+                textAlign: "center",
+                appearance: "textfield",
+              },
+            }}
           />
         </Grid>
-        <Grid  size={6}>
+        <Grid size={6}>
           <TextField
             onChange={(e) => handleChange("woundCheck", +e.target.value)}
-            value={character.health.woundCheck}
+            value={character.health.woundCheck || ""}
             label="Wound Check"
             type="number"
             fullWidth
-            sx={{ "& input": { 
+            sx={{
+              "& input": {
                 textAlign: "center",
-                appearance: "textfield", 
-            } }}
+                appearance: "textfield",
+              },
+            }}
           />
         </Grid>
       </Grid>

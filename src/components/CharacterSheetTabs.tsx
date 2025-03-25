@@ -5,7 +5,7 @@ import CharacterArchetypes from "./CharacterArchetypes";
 import CharacterManeuvers from "./CharacterManuevers";
 import CharacterAdvantages from "./CharacterAdvantages";
 
-const CharacterTabs = () => {
+const CharacterSheetTabs = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
@@ -20,7 +20,7 @@ const CharacterTabs = () => {
         <Tab label="Advantages" /> 
       </Tabs>
 
-      <Box sx={{ padding: 2 }}>
+      <Box sx={{ padding: 0 }}>
         {tabIndex === 0 && <CharacterArchetypes />}
         {tabIndex === 1 && <CharacterManeuvers />}
         {tabIndex === 2 && <CharacterAdvantages />} 
@@ -29,4 +29,4 @@ const CharacterTabs = () => {
   );
 };
 
-export default CharacterTabs;
+export default CharacterSheetTabs;

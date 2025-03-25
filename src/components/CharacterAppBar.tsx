@@ -2,19 +2,23 @@ import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import AddIcon from "@mui/icons-material/Add";
-import { useCharacterTabs } from "./CharacterTabsContext";
+import { useCharacter } from "./CharacterContext"; // Use correct context
+import { useRef } from "react";
 
 const CharacterAppBar = () => {
-  const { addNewCharacter, updateCharacterFromFile } = useCharacterTabs();
+  const { characters, activeCharacter, addCharacter, updateCharacterFromFile } = useCharacter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
-    const character = localStorage.getItem("currentCharacter");
-    if (!character) return;
-
-    const blob = new Blob([character], { type: "application/json" });
+    if (characters.length === 0) return;
+  
+    const character = characters[activeCharacter];
+    const characterName = character.name ? character.name.replace(/\s+/g, "_") : `character_${activeCharacter + 1}`; // Ensure a safe filename
+    const characterData = JSON.stringify(character, null, 2);
+    const blob = new Blob([characterData], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "character.json";
+    link.download = `${characterName}.json`;
     link.click();
   };
 
@@ -32,30 +36,33 @@ const CharacterAppBar = () => {
       }
     };
     reader.readAsText(file);
+
+    // Reset input to allow selecting the same file again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Character Manager
+          Clockwork Court Character Manager
         </Typography>
         <input
           type="file"
           accept="application/json"
           hidden
-          id="import-character"
+          ref={fileInputRef}
           onChange={handleImport}
         />
-        <label htmlFor="import-character">
-          <IconButton color="inherit" component="span">
-            <FileUploadIcon />
-          </IconButton>
-        </label>
+        <IconButton color="inherit" onClick={() => fileInputRef.current?.click()}>
+          <FileUploadIcon />
+        </IconButton>
         <IconButton color="inherit" onClick={handleExport}>
           <FileDownloadIcon />
         </IconButton>
-        <IconButton color="inherit" onClick={addNewCharacter}>
+        <IconButton color="inherit" onClick={addCharacter}>
           <AddIcon />
         </IconButton>
       </Toolbar>

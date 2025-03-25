@@ -1,18 +1,29 @@
 import { useCharacter } from "./CharacterContext";
 import { TextField, Typography, Box, IconButton } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const CharacterSkills = () => {
-  const { character, updateCharacter } = useCharacter();
+  const { characters, activeCharacter, updateCharacter } = useCharacter();
+  const character = characters[activeCharacter];
+
+  // Ensure character.skills exists
+  useEffect(() => {
+    if (!character.skills) {
+      updateCharacter(activeCharacter, { skills: { skills: [] } });
+    }
+  }, [character, activeCharacter, updateCharacter]);
+
+  const skillsList = character.skills?.skills || [];
+
   const [newSkill, setNewSkill] = useState({ skill: "", rank: 1 });
 
   const handleSkillChange = (index: number, field: "skill" | "rank", value: string | number) => {
-    const updatedSkills = [...character.skills.skills];
+    const updatedSkills = [...skillsList];
     updatedSkills[index] = { ...updatedSkills[index], [field]: value };
-    updateCharacter({ skills: { ...character.skills, skills: updatedSkills } });
+    updateCharacter(activeCharacter, { skills: { skills: updatedSkills } });
   };
 
   const handleNewSkillChange = (field: "skill" | "rank", value: string | number) => {
@@ -21,30 +32,38 @@ const CharacterSkills = () => {
 
   const addNewSkill = () => {
     if (newSkill.skill.trim() !== "") {
-      updateCharacter({
-        skills: { ...character.skills, skills: [...character.skills.skills, newSkill] },
-      });
-      setNewSkill({ skill: "", rank: 1 }); // Reset input fields
+      updateCharacter(activeCharacter, { skills: { skills: [...skillsList, newSkill] } });
+      setNewSkill({ skill: "", rank: 1 });
     }
   };
 
   const removeSkill = (index: number) => {
-    const updatedSkills = character.skills.skills.filter((_, i) => i !== index);
-    updateCharacter({ skills: { ...character.skills, skills: updatedSkills } });
+    const updatedSkills = skillsList.filter((_, i) => i !== index);
+    updateCharacter(activeCharacter, { skills: { skills: updatedSkills } });
   };
+
+  if (!character || !character.traits) {
+    return <div>Loading character...</div>; // Handle missing data gracefully
+  }
 
   return (
     <Box sx={{ maxHeight: "300px", overflow: "auto", padding: 1 }}>
       <Typography variant="h6">Skills</Typography>
       <Grid container spacing={1}>
-        {character.skills.skills.map((skill, index) => (
+        {skillsList.length === 0 && (
+          <Typography variant="body2" sx={{ width: "100%", textAlign: "center", mb: 1 }}>
+            No skills yet. Add one below.
+          </Typography>
+        )}
+
+        {skillsList.map((skill, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
             <Grid size={7}>
               <TextField
                 value={skill.skill}
                 onChange={(e) => handleSkillChange(index, "skill", e.target.value)}
                 fullWidth
-                // sx={{ height: "2.5rem" }}
+                label="Skill"
               />
             </Grid>
             <Grid size={3}>
@@ -53,11 +72,11 @@ const CharacterSkills = () => {
                 value={skill.rank}
                 onChange={(e) => handleSkillChange(index, "rank", +e.target.value)}
                 fullWidth
+                label="Rank"
                 sx={{
                   "& input": {
                     textAlign: "center",
-                    // height: "2.5rem",
-                    MozAppearance: "textfield", // Hides number increment controls
+                    MozAppearance: "textfield",
                     WebkitAppearance: "textfield",
                   },
                 }}
@@ -79,7 +98,7 @@ const CharacterSkills = () => {
               onChange={(e) => handleNewSkillChange("skill", e.target.value)}
               placeholder="New Skill"
               fullWidth
-            //   sx={{ height: "2.5rem" }}
+              label="Skill"
             />
           </Grid>
           <Grid size={3}>
@@ -88,10 +107,10 @@ const CharacterSkills = () => {
               value={newSkill.rank}
               onChange={(e) => handleNewSkillChange("rank", +e.target.value)}
               fullWidth
+              label="Rank"
               sx={{
                 "& input": {
                   textAlign: "center",
-                //   height: "2.5rem",
                   MozAppearance: "textfield",
                   WebkitAppearance: "textfield",
                 },
