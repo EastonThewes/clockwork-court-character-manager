@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
-import CharacterSkills from "./CharacterSkills";
 import CharacterArchetypes from "./CharacterArchetypes";
 import CharacterManeuvers from "./CharacterManuevers";
 import CharacterAdvantages from "./CharacterAdvantages";
