@@ -8,10 +8,11 @@ export class Character {
     health: Health = new Health;
     aspect: Aspect = new Aspect;
     targetNumber: number = 0;
-    skills: Skills = new Skills;
-    archetypes: Archetypes = new Archetypes;
-    manueversInvocations: ManueversInvocations = new ManueversInvocations;
-    advantages: Advantages = new Advantages;
+    skills: Skill[] = [];
+    archetypes: Archetype[] = [];
+    manueversInvocations: ManueverInvocation[] = [];
+    advantages: Advantage[] = [];
+    weapons: Weapon[] = [];
 }
 
 export class Traits {
@@ -44,18 +45,14 @@ export class Aspect {
     troubles: string[] = [];
 }
 
-export class Skills {
-    skills: Skill[] = [];
-}
+
 
 export class Skill {
     skill: string = '';
     rank: number = 0;
 }
 
-export class Archetypes {
-    archetypes: Archetype[] = [];
-}
+
 export class Archetype {
     archetype: string = '';
     initiate: string = '';
@@ -63,9 +60,6 @@ export class Archetype {
     master: string = '';
 }
 
-export class ManueversInvocations {
-    manueversInvocations: ManueverInvocation[] = [];
-}
 
 export class ManueverInvocation {
     name: string = '';
@@ -74,11 +68,18 @@ export class ManueverInvocation {
     description: string = '';
 }
 
-export class Advantages {
-    advantages: Advantage[] = [];
-} 
+
 
 export class Advantage {
     name: string = '';
     description: string = '';
+}
+
+
+
+export class Weapon {
+    qualities: string = '';
+    modifiers: string = '';
+    attack: string = '';
+    damage: string = '';
 }

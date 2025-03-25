@@ -3,6 +3,7 @@ import { Tabs, Tab, Box } from "@mui/material";
 import CharacterArchetypes from "./CharacterArchetypes";
 import CharacterManeuvers from "./CharacterManuevers";
 import CharacterAdvantages from "./CharacterAdvantages";
+import CharacterWeapons from "./CharacterWeapons";
 
 const CharacterSheetTabs = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -17,12 +18,14 @@ const CharacterSheetTabs = () => {
         <Tab label="Archetypes" />
         <Tab label="Manuevers" />
         <Tab label="Advantages" /> 
+        <Tab label="Weapons" /> 
       </Tabs>
 
       <Box sx={{ padding: 0 }}>
         {tabIndex === 0 && <CharacterArchetypes />}
         {tabIndex === 1 && <CharacterManeuvers />}
         {tabIndex === 2 && <CharacterAdvantages />} 
+        {tabIndex === 3 && <CharacterWeapons />} 
       </Box>
     </Box>
   );

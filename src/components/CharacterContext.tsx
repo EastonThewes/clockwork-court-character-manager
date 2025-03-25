@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Character } from "./CharacterModel"; 
+import { Character } from "./CharacterModel";
 
 interface CharacterContextType {
   characters: Character[];
@@ -18,7 +18,7 @@ const STORAGE_KEY = "characters";
 export const CharacterProvider = ({ children }: { children: ReactNode }) => {
   const [characters, setCharacters] = useState<Character[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [new Character()]; // Ensures a valid character
+    return saved ? JSON.parse(saved).map((char: any) => Object.assign(new Character(), char)) : [new Character()];
   });
 
   const [activeCharacter, setActiveCharacter] = useState<number>(0);
@@ -41,7 +41,7 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
     setCharacters((prev) => {
       const newCharacters = prev.filter((_, i) => i !== index);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newCharacters));
-      return newCharacters.length > 0 ? newCharacters : [new Character()]; // Ensure at least one character remains
+      return newCharacters.length > 0 ? newCharacters : [new Character()];
     });
 
     if (activeCharacter >= index && activeCharacter > 0) {
@@ -52,7 +52,15 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
   const updateCharacter = (index: number, updates: Partial<Character>) => {
     setCharacters((prev) => {
       const newCharacters = prev.map((char, i) =>
-        i === index ? { ...char, ...updates } : char
+        i === index
+          ? Object.assign(new Character(), char, updates, {
+              skills: updates.skills ?? char.skills ?? [],
+              archetypes: updates.archetypes ?? char.archetypes ?? [],
+              manueversInvocations: updates.manueversInvocations ?? char.manueversInvocations ?? [],
+              advantages: updates.advantages ?? char.advantages ?? [],
+              weapons: updates.weapons ?? char.weapons ?? [],
+            })
+          : char
       );
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newCharacters));
       return newCharacters;
@@ -61,7 +69,7 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
 
   const updateCharacterFromFile = (character: Character) => {
     setCharacters((prev) => {
-      const newCharacters = [...prev, character];
+      const newCharacters = [...prev, Object.assign(new Character(), character)];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newCharacters));
       return newCharacters;
     });

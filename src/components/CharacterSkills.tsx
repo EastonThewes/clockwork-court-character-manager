@@ -1,29 +1,27 @@
 import { useCharacter } from "./CharacterContext";
-import { TextField, Typography, Box, IconButton } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { TextField, Typography, Box, IconButton, Grid2 } from "@mui/material";
 import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const CharacterSkills = () => {
   const { characters, activeCharacter, updateCharacter } = useCharacter();
-  const character = characters[activeCharacter];
+  const character = characters[activeCharacter] || {}; // Ensure character is never undefined
 
-  // Ensure character.skills exists
   useEffect(() => {
-    if (!character.skills) {
-      updateCharacter(activeCharacter, { skills: { skills: [] } });
+    if (!Array.isArray(character.skills)) {
+      updateCharacter(activeCharacter, { skills: [] });
     }
-  }, [character, activeCharacter, updateCharacter]);
+  }, [character.skills, activeCharacter, updateCharacter]);
 
-  const skillsList = character.skills?.skills || [];
-
+  const skillsList = Array.isArray(character.skills) ? character.skills : []; // Ensure it's an array
   const [newSkill, setNewSkill] = useState({ skill: "", rank: 1 });
 
   const handleSkillChange = (index: number, field: "skill" | "rank", value: string | number) => {
+    if (!Array.isArray(skillsList)) return; // Extra safety check
     const updatedSkills = [...skillsList];
     updatedSkills[index] = { ...updatedSkills[index], [field]: value };
-    updateCharacter(activeCharacter, { skills: { skills: updatedSkills } });
+    updateCharacter(activeCharacter, { skills: updatedSkills });
   };
 
   const handleNewSkillChange = (field: "skill" | "rank", value: string | number) => {
@@ -31,25 +29,22 @@ const CharacterSkills = () => {
   };
 
   const addNewSkill = () => {
-    if (newSkill.skill.trim() !== "") {
-      updateCharacter(activeCharacter, { skills: { skills: [...skillsList, newSkill] } });
+    if (newSkill.skill.trim()) {
+      updateCharacter(activeCharacter, { skills: [...skillsList, newSkill] });
       setNewSkill({ skill: "", rank: 1 });
     }
   };
 
   const removeSkill = (index: number) => {
+    if (!Array.isArray(skillsList)) return;
     const updatedSkills = skillsList.filter((_, i) => i !== index);
-    updateCharacter(activeCharacter, { skills: { skills: updatedSkills } });
+    updateCharacter(activeCharacter, { skills: updatedSkills });
   };
 
-  if (!character || !character.traits) {
-    return <div>Loading character...</div>; // Handle missing data gracefully
-  }
-
   return (
-    <Box sx={{ maxHeight: "300px", overflow: "auto", padding: 1 }}>
+    <Box sx={{ maxHeight: 300, overflow: "auto", p: 1 }}>
       <Typography variant="h6">Skills</Typography>
-      <Grid container spacing={1}>
+      <Grid2 container spacing={1}>
         {skillsList.length === 0 && (
           <Typography variant="body2" sx={{ width: "100%", textAlign: "center", mb: 1 }}>
             No skills yet. Add one below.
@@ -57,16 +52,16 @@ const CharacterSkills = () => {
         )}
 
         {skillsList.map((skill, index) => (
-          <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={7}>
+          <Grid2 key={index} container  size={12} spacing={1}>
+            <Grid2  size={7}>
               <TextField
                 value={skill.skill}
                 onChange={(e) => handleSkillChange(index, "skill", e.target.value)}
                 fullWidth
                 label="Skill"
               />
-            </Grid>
-            <Grid size={3}>
+            </Grid2>
+            <Grid2  size={3}>
               <TextField
                 type="number"
                 value={skill.rank}
@@ -81,27 +76,25 @@ const CharacterSkills = () => {
                   },
                 }}
               />
-            </Grid>
-            <Grid size={2}>
+            </Grid2>
+            <Grid2  size={2}>
               <IconButton onClick={() => removeSkill(index)}>
                 <DeleteIcon color="error" />
               </IconButton>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         ))}
 
-        {/* New Skill Row */}
-        <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={7}>
+        <Grid2 container size={12}  spacing={1}>
+          <Grid2  size={7}>
             <TextField
               value={newSkill.skill}
               onChange={(e) => handleNewSkillChange("skill", e.target.value)}
-              placeholder="New Skill"
               fullWidth
               label="Skill"
             />
-          </Grid>
-          <Grid size={3}>
+          </Grid2>
+          <Grid2  size={3}>
             <TextField
               type="number"
               value={newSkill.rank}
@@ -116,14 +109,14 @@ const CharacterSkills = () => {
                 },
               }}
             />
-          </Grid>
-          <Grid size={2}>
-            <IconButton onClick={addNewSkill} disabled={newSkill.skill.trim() === ""}>
-              <AddCircleIcon color={newSkill.skill.trim() !== "" ? "primary" : "disabled"} />
+          </Grid2>
+          <Grid2  size={2}>
+            <IconButton onClick={addNewSkill} disabled={!newSkill.skill.trim()}>
+              <AddCircleIcon color={newSkill.skill.trim() ? "primary" : "disabled"} />
             </IconButton>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
     </Box>
   );
 };

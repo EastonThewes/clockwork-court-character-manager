@@ -12,18 +12,19 @@ const CharacterAdvantages = () => {
   // Ensure character.advantages exists
   useEffect(() => {
     if (!character.advantages) {
-      updateCharacter(activeCharacter, { advantages: { advantages: [] } });
+      updateCharacter(activeCharacter, { advantages: []  });
     }
   }, [character, activeCharacter, updateCharacter]);
 
-  const advantagesList = character.advantages?.advantages || [];
+  const advantagesList = Array.isArray(character.advantages) ? character.advantages : [];
+  
 
   const [newAdvantage, setNewAdvantage] = useState({ name: "", description: "" });
 
   const handleAdvantageChange = (index: number, field: keyof typeof newAdvantage, value: string) => {
     const updatedAdvantages = [...advantagesList];
     updatedAdvantages[index] = { ...updatedAdvantages[index], [field]: value };
-    updateCharacter(activeCharacter, { advantages: { advantages: updatedAdvantages } });
+    updateCharacter(activeCharacter, { advantages:  updatedAdvantages } );
   };
 
   const handleNewAdvantageChange = (field: keyof typeof newAdvantage, value: string) => {
@@ -33,7 +34,7 @@ const CharacterAdvantages = () => {
   const addNewAdvantage = () => {
     if (newAdvantage.name.trim() !== "") {
       updateCharacter(activeCharacter, {
-        advantages: { advantages: [...advantagesList, newAdvantage] },
+        advantages:  [...advantagesList, newAdvantage],
       });
       setNewAdvantage({ name: "", description: "" }); // Reset input fields
     }
@@ -41,7 +42,7 @@ const CharacterAdvantages = () => {
 
   const removeAdvantage = (index: number) => {
     const updatedAdvantages = advantagesList.filter((_, i) => i !== index);
-    updateCharacter(activeCharacter, { advantages: { advantages: updatedAdvantages } });
+    updateCharacter(activeCharacter, { advantages: updatedAdvantages });
   };
 
   if (!character || !character.traits) {

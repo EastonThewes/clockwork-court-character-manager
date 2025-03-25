@@ -12,18 +12,18 @@ const CharacterArchetypes = () => {
   // Ensure character.archetypes exists
   useEffect(() => {
     if (!character.archetypes) {
-      updateCharacter(activeCharacter, { archetypes: { archetypes: [] } });
+      updateCharacter(activeCharacter, { archetypes:  []  });
     }
   }, [character, activeCharacter, updateCharacter]);
 
-  const archetypesList = character.archetypes?.archetypes || [];
+  const archetypesList = Array.isArray(character.archetypes) ? character.archetypes : [];
 
   const [newArchetype, setNewArchetype] = useState({ archetype: "", initiate: "", adept: "", master: "" });
 
   const handleArchetypeChange = (index: number, field: keyof typeof newArchetype, value: string) => {
     const updatedArchetypes = [...archetypesList];
     updatedArchetypes[index] = { ...updatedArchetypes[index], [field]: value };
-    updateCharacter(activeCharacter, { archetypes: { archetypes: updatedArchetypes } });
+    updateCharacter(activeCharacter, { archetypes: updatedArchetypes  });
   };
 
   const handleNewArchetypeChange = (field: keyof typeof newArchetype, value: string) => {
@@ -33,7 +33,7 @@ const CharacterArchetypes = () => {
   const addNewArchetype = () => {
     if (newArchetype.archetype.trim() !== "") {
       updateCharacter(activeCharacter, {
-        archetypes: { archetypes: [...archetypesList, newArchetype] },
+        archetypes:  [...archetypesList, newArchetype] ,
       });
       setNewArchetype({ archetype: "", initiate: "", adept: "", master: "" }); // Reset input fields
     }
@@ -41,7 +41,7 @@ const CharacterArchetypes = () => {
 
   const removeArchetype = (index: number) => {
     const updatedArchetypes = archetypesList.filter((_, i) => i !== index);
-    updateCharacter(activeCharacter, { archetypes: { archetypes: updatedArchetypes } });
+    updateCharacter(activeCharacter, { archetypes: updatedArchetypes  });
   };
 
   return (

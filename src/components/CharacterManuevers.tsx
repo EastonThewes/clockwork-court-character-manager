@@ -12,18 +12,19 @@ const CharacterManeuvers = () => {
   // Ensure character.manueversInvocations exists
   useEffect(() => {
     if (!character.manueversInvocations) {
-      updateCharacter(activeCharacter, { manueversInvocations: { manueversInvocations: [] } });
+      updateCharacter(activeCharacter, { manueversInvocations: []  });
     }
   }, [character, activeCharacter, updateCharacter]);
 
-  const maneuversList = character.manueversInvocations?.manueversInvocations || [];
+  const maneuversList = Array.isArray(character.manueversInvocations) ? character.manueversInvocations : [];
+  
 
   const [newManeuver, setNewManeuver] = useState({ name: "", roll: "", action: "", description: "" });
 
   const handleManeuverChange = (index: number, field: keyof typeof newManeuver, value: string) => {
     const updatedManeuvers = [...maneuversList];
     updatedManeuvers[index] = { ...updatedManeuvers[index], [field]: value };
-    updateCharacter(activeCharacter, { manueversInvocations: { manueversInvocations: updatedManeuvers } });
+    updateCharacter(activeCharacter, { manueversInvocations: updatedManeuvers  });
   };
 
   const handleNewManeuverChange = (field: keyof typeof newManeuver, value: string) => {
@@ -33,7 +34,7 @@ const CharacterManeuvers = () => {
   const addNewManeuver = () => {
     if (newManeuver.name.trim() !== "") {
       updateCharacter(activeCharacter, {
-        manueversInvocations: { manueversInvocations: [...maneuversList, newManeuver] },
+        manueversInvocations:  [...maneuversList, newManeuver] ,
       });
       setNewManeuver({ name: "", roll: "", action: "", description: "" }); // Reset input fields
     }
@@ -41,7 +42,7 @@ const CharacterManeuvers = () => {
 
   const removeManeuver = (index: number) => {
     const updatedManeuvers = maneuversList.filter((_, i) => i !== index);
-    updateCharacter(activeCharacter, { manueversInvocations: { manueversInvocations: updatedManeuvers } });
+    updateCharacter(activeCharacter, { manueversInvocations:  updatedManeuvers  });
   };
 
   return (
