@@ -27,7 +27,7 @@ const CharacterInfo = () => {
 
   return (
     <Grid container spacing={1} rowSpacing={1} >
-      <Grid size={5}>
+      <Grid size={{md:5,xs:6}}>
         <TextField
           onChange={(e) => handleChange("name", e.target.value)}
           value={character.name}
@@ -36,7 +36,7 @@ const CharacterInfo = () => {
           size="small"
         />
       </Grid>
-      <Grid size={2}>
+      <Grid size={{md:2,xs:3}}>
         <TextField
           onChange={(e) => handleChange("xp", +e.target.value)}
           value={character.xp}
@@ -47,7 +47,7 @@ const CharacterInfo = () => {
           sx={{ "& input[type=number]": { appearance: "textfield" } }}
         />
       </Grid>
-      <Grid size={2}>
+      <Grid size={{md:2,xs:3}}>
         <TextField
           onChange={(e) => handleChange("skillXP", +e.target.value)}
           value={character.skillXP}
@@ -58,7 +58,7 @@ const CharacterInfo = () => {
           sx={{ "& input[type=number]": { appearance: "textfield" } }}
         />
       </Grid>
-      <Grid size={3}>
+      <Grid size={{md:3,xs:12}}>
         <CharacterEndeavorDice />
       </Grid>
 

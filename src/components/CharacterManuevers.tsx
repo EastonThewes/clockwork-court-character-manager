@@ -57,7 +57,7 @@ const CharacterManeuvers = () => {
 
         {maneuversList.map((maneuver, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={2}>
+            <Grid size={{md:2,xs:12}}>
               <TextField
                 value={maneuver.name}
                 onChange={(e) => handleManeuverChange(index, "name", e.target.value)}
@@ -66,7 +66,7 @@ const CharacterManeuvers = () => {
                 label="Name"
               />
             </Grid>
-            <Grid size={2}>
+            <Grid size={{md:2,xs:12}}>
               <TextField
                 value={maneuver.roll}
                 onChange={(e) => handleManeuverChange(index, "roll", e.target.value)}
@@ -75,7 +75,7 @@ const CharacterManeuvers = () => {
                 label="Roll"
               />
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <TextField
                 value={maneuver.action}
                 onChange={(e) => handleManeuverChange(index, "action", e.target.value)}
@@ -84,7 +84,7 @@ const CharacterManeuvers = () => {
                 label="Action"
               />
             </Grid>
-            <Grid size={6}>
+            <Grid size={{md:6,xs:12}}>
               <Tooltip title={maneuver.description} arrow>
                 <TextField
                   value={maneuver.description}
@@ -95,7 +95,7 @@ const CharacterManeuvers = () => {
                 />
               </Tooltip>
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <IconButton onClick={() => removeManeuver(index)}>
                 <DeleteIcon color="error" />
               </IconButton>
@@ -105,7 +105,7 @@ const CharacterManeuvers = () => {
 
         {/* New Maneuver Row */}
         <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={2}>
+          <Grid size={{md:2,xs:12}}>
             <TextField
               value={newManeuver.name}
               onChange={(e) => handleNewManeuverChange("name", e.target.value)}
@@ -115,7 +115,7 @@ const CharacterManeuvers = () => {
               label="Name"
             />
           </Grid>
-          <Grid size={2}>
+          <Grid size={{md:2,xs:12}}>
             <TextField
               value={newManeuver.roll}
               onChange={(e) => handleNewManeuverChange("roll", e.target.value)}
@@ -125,7 +125,7 @@ const CharacterManeuvers = () => {
               label="Roll"
             />
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <TextField
               value={newManeuver.action}
               onChange={(e) => handleNewManeuverChange("action", e.target.value)}
@@ -135,7 +135,7 @@ const CharacterManeuvers = () => {
               label="Action"
             />
           </Grid>
-          <Grid size={6}>
+          <Grid size={{md:6,xs:12}}>
             <Tooltip  title={newManeuver.description} arrow>
               <TextField
                 value={newManeuver.description}
@@ -147,7 +147,7 @@ const CharacterManeuvers = () => {
               />
             </Tooltip>
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <IconButton onClick={addNewManeuver} disabled={newManeuver.name.trim() === ""}>
               <AddCircleIcon color={newManeuver.name.trim() !== "" ? "primary" : "disabled"} />
             </IconButton>

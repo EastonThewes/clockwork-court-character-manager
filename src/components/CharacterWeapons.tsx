@@ -74,7 +74,7 @@ const CharacterWeapons = () => {
 
         {weaponsList.map((weapon, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <TextField
                 value={weapon.size}
                 onChange={(e) =>
@@ -85,7 +85,7 @@ const CharacterWeapons = () => {
                 label="Size"
               />
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <TextField
                 value={weapon.weight}
                 onChange={(e) =>
@@ -96,7 +96,7 @@ const CharacterWeapons = () => {
                 label="Weight"
               />
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <TextField
                 value={weapon.style}
                 onChange={(e) =>
@@ -107,7 +107,7 @@ const CharacterWeapons = () => {
                 label="Style"
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{md:3,xs:12}}>
               <TextField
                 value={weapon.modifiers}
                 onChange={(e) =>
@@ -119,7 +119,7 @@ const CharacterWeapons = () => {
                 label="Modifiers"
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{md:3,xs:12}}>
               <TextField
                 value={weapon.attack}
                 onChange={(e) =>
@@ -131,7 +131,7 @@ const CharacterWeapons = () => {
                 label="Attack"
               />
             </Grid>
-            <Grid size={2}>
+            <Grid size={{md:2,xs:12}}>
               <TextField
                 value={weapon.damage}
                 onChange={(e) =>
@@ -143,7 +143,7 @@ const CharacterWeapons = () => {
                 label="Damage"
               />
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <IconButton onClick={() => removeWeapon(index)}>
                 <DeleteIcon color="error" />
               </IconButton>
@@ -153,7 +153,7 @@ const CharacterWeapons = () => {
 
         {/* New Weapon Row */}
         <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <TextField
               value={newWeapon.size}
               onChange={(e) =>
@@ -166,7 +166,7 @@ const CharacterWeapons = () => {
               label="Size"
             />
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <TextField
               value={newWeapon.weight}
               onChange={(e) =>
@@ -179,7 +179,7 @@ const CharacterWeapons = () => {
               label="Weight"
             />
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <TextField
               value={newWeapon.style}
               onChange={(e) =>
@@ -192,7 +192,7 @@ const CharacterWeapons = () => {
               label="Style"
             />
           </Grid>
-          <Grid size={3}>
+          <Grid size={{md:3,xs:12}}>
             <TextField
               value={newWeapon.modifiers}
               onChange={(e) =>
@@ -205,7 +205,7 @@ const CharacterWeapons = () => {
               label="Modifiers"
             />
           </Grid>
-          <Grid size={3}>
+          <Grid size={{md:3,xs:12}}>
             <TextField
               value={newWeapon.attack}
               onChange={(e) =>
@@ -218,7 +218,7 @@ const CharacterWeapons = () => {
               label="Attack"
             />
           </Grid>
-          <Grid size={2}>
+          <Grid size={{md:2,xs:12}}>
             <TextField
               value={newWeapon.damage}
               onChange={(e) =>
@@ -231,7 +231,7 @@ const CharacterWeapons = () => {
               label="Damage"
             />
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <IconButton
               onClick={addNewWeapon}
               disabled={newWeapon.size.trim() === ""}

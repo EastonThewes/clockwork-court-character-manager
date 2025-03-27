@@ -61,7 +61,7 @@ const CharacterAdvantages = () => {
 
         {advantagesList.map((advantage, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={3}>
+            <Grid size={{md:3,xs:12}}>
               <TextField
                 value={advantage.name}
                 onChange={(e) => handleAdvantageChange(index, "name", e.target.value)}
@@ -70,7 +70,7 @@ const CharacterAdvantages = () => {
                 label="Name"
               />
             </Grid>
-            <Grid size={8}>
+            <Grid size={{md:8,xs:12}}>
               <Tooltip title={advantage.description} arrow>
                 <TextField
                   value={advantage.description}
@@ -81,7 +81,7 @@ const CharacterAdvantages = () => {
                 />
               </Tooltip>
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <IconButton onClick={() => removeAdvantage(index)}>
                 <DeleteIcon color="error" />
               </IconButton>
@@ -91,7 +91,7 @@ const CharacterAdvantages = () => {
 
         {/* New Advantage Row */}
         <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={3}>
+          <Grid size={{md:3,xs:12}}>
             <TextField
               value={newAdvantage.name}
               onChange={(e) => handleNewAdvantageChange("name", e.target.value)}
@@ -101,7 +101,7 @@ const CharacterAdvantages = () => {
               label="Name"
             />
           </Grid>
-          <Grid size={8}>
+          <Grid size={{md:8,xs:12}}>
             <Tooltip title={newAdvantage.description} arrow>
               <TextField
                 value={newAdvantage.description}
@@ -113,7 +113,7 @@ const CharacterAdvantages = () => {
               />
             </Tooltip>
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <IconButton onClick={addNewAdvantage} disabled={newAdvantage.name.trim() === ""}>
               <AddCircleIcon color={newAdvantage.name.trim() !== "" ? "primary" : "disabled"} />
             </IconButton>

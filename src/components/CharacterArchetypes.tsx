@@ -56,7 +56,7 @@ const CharacterArchetypes = () => {
 
         {archetypesList.map((archetype, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <TextField
                 value={archetype.archetype}
                 onChange={(e) => handleArchetypeChange(index, "archetype", e.target.value)}
@@ -65,7 +65,7 @@ const CharacterArchetypes = () => {
                 label="Archetype"
               />
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <TextField
                 value={archetype.style}
                 onChange={(e) => handleArchetypeChange(index, "style", e.target.value)}
@@ -74,7 +74,7 @@ const CharacterArchetypes = () => {
                 label="Style"
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{md:3,xs:12}}>
               <Tooltip title={archetype.initiate} arrow>
                 <TextField
                   value={archetype.initiate}
@@ -85,7 +85,7 @@ const CharacterArchetypes = () => {
                 />
               </Tooltip>
             </Grid>
-            <Grid size={3}>
+            <Grid size={{md:3,xs:12}}>
               <Tooltip title={archetype.adept} arrow>
                 <TextField
                   value={archetype.adept}
@@ -96,7 +96,7 @@ const CharacterArchetypes = () => {
                 />
               </Tooltip>
             </Grid>
-            <Grid size={3}>
+            <Grid size={{md:3,xs:12}}>
               <Tooltip title={archetype.master} arrow>
                 <TextField
                   value={archetype.master}
@@ -107,7 +107,7 @@ const CharacterArchetypes = () => {
                 />
               </Tooltip>
             </Grid>
-            <Grid size={1}>
+            <Grid size={{md:1,xs:12}}>
               <IconButton onClick={() => removeArchetype(index)}>
                 <DeleteIcon color="error" />
               </IconButton>
@@ -117,7 +117,7 @@ const CharacterArchetypes = () => {
 
         {/* New Archetype Row */}
         <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <TextField
               value={newArchetype.archetype}
               onChange={(e) => handleNewArchetypeChange("archetype", e.target.value)}
@@ -127,7 +127,7 @@ const CharacterArchetypes = () => {
               label="Archetype"
             />
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <TextField
               value={newArchetype.style}
               onChange={(e) => handleNewArchetypeChange("style", e.target.value)}
@@ -136,7 +136,7 @@ const CharacterArchetypes = () => {
               label="Style"
             />
           </Grid>
-          <Grid size={3}>
+          <Grid size={{md:3,xs:12}}>
             <Tooltip title={newArchetype.initiate} arrow>
               <TextField
                 value={newArchetype.initiate}
@@ -148,7 +148,7 @@ const CharacterArchetypes = () => {
               />
             </Tooltip>
           </Grid>
-          <Grid size={3}>
+          <Grid size={{md:3,xs:12}}>
             <Tooltip title={newArchetype.adept} arrow>
               <TextField
                 value={newArchetype.adept}
@@ -160,7 +160,7 @@ const CharacterArchetypes = () => {
               />
             </Tooltip>
           </Grid>
-          <Grid size={3}>
+          <Grid size={{md:3,xs:12}}>
             <Tooltip title={newArchetype.master} arrow>
               <TextField
                 value={newArchetype.master}
@@ -172,7 +172,7 @@ const CharacterArchetypes = () => {
               />
             </Tooltip>
           </Grid>
-          <Grid size={1}>
+          <Grid size={{md:1,xs:12}}>
             <IconButton onClick={addNewArchetype} disabled={newArchetype.archetype.trim() === ""}>
               <AddCircleIcon color={newArchetype.archetype.trim() !== "" ? "primary" : "disabled"} />
             </IconButton>

@@ -13,8 +13,11 @@ const CharacterSheetTabs = () => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Tabs value={tabIndex} onChange={handleChange} centered>
+    <Box sx={{ }}>
+      <Tabs value={tabIndex} onChange={handleChange} 
+      variant="scrollable"
+  scrollButtons="auto"
+  allowScrollButtonsMobile>
         <Tab label="Archetypes" />
         <Tab label="Manuevers" />
         <Tab label="Advantages" /> 

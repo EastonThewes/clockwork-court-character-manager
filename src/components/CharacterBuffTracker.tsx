@@ -52,7 +52,7 @@ const CharacterBuffTracker = () => {
 
   return (
     <Box sx={{ maxHeight:'28vh', }}>
-      <Typography variant="h6">Buffs</Typography>
+      <Typography variant="h6">Conditions</Typography>
       <Box  sx={{ maxHeight:'28vh', overflow: "auto", pt: 1, pb:2 }}>
       <Grid container spacing={1}>
         {buffsList.length === 0 && (
@@ -60,7 +60,7 @@ const CharacterBuffTracker = () => {
             variant="body2"
             sx={{ width: "100%", textAlign: "center", mb: 1 }}
           >
-            No buffs yet. Add one below.
+            No conditions yet. Add one below.
           </Typography>
         )}
 

@@ -67,11 +67,16 @@ const CharacterSheet: React.FC = () => {
 
       {/* Character Details */}
       <Box
-        sx={{ height: "87vh", display: "flex", flexDirection: "column", p: 1 }}
-      >
+  sx={{
+    height: { xs: 'auto', md: '87vh' }, // For xs screens, height is 'auto', for md and up it's '87vh'
+    display: "flex",
+    flexDirection: "column",
+    p: 1
+  }}
+>
         <Grid2 container spacing={1} sx={{ p: 1, display: "flex" }}>
           {/* Top Left */}
-          <Grid2 size={4}>
+          <Grid2 size={{md:4, xs:12}}>
             <Stack spacing={1} sx={{}}>
               <Card>
                 <CardContent>
@@ -99,21 +104,21 @@ const CharacterSheet: React.FC = () => {
               </Stack>
             </Stack>
           </Grid2>
-          <Grid2 size={2.5} sx={{ height: "100%" }}>
+          <Grid2 size={{md:2.5,xs:12}} sx={{ height: "100%" }}>
             <Card sx={{ height: "100%" }}>
               <CardContent sx={{ height: "100%" }}>
                 <CharacterDrives />
               </CardContent>
             </Card>
           </Grid2>
-          <Grid2 size={2.5} sx={{ height: "100%" }}>
+          <Grid2 size={{md:2.5,xs:12}} sx={{ height: "100%" }}>
             <Card sx={{ height: "100%" }}>
               <CardContent sx={{ height: "100%" }}>
                 <CharacterTroubles />
               </CardContent>
             </Card>
           </Grid2>
-          <Grid2 size={3} sx={{ height: "100%" }}>
+          <Grid2 size={{md:3,xs:12}} sx={{ height: "100%" }}>
             <Card sx={{ height: "100%" }}>
               <CardContent sx={{ height: "100%" }}>
                 <CharacterBuffTracker />
@@ -128,14 +133,14 @@ const CharacterSheet: React.FC = () => {
           spacing={1}
           sx={{ p: 1, display: "flex", flexGrow: 1 }}
         >
-          <Grid2 size={2} sx={{ height: "100%" }}>
+          <Grid2 size={{md:2,xs:12}} sx={{ height: "100%" }}>
             <Card sx={{ height: "100%" }}>
               <CardContent sx={{ height: "100%" }}>
                 <CharacterSkills />
               </CardContent>
             </Card>
           </Grid2>
-          <Grid2 size={10} sx={{ height: "100%" }}>
+          <Grid2 size={{md:10,xs:12}} sx={{ height: "100%" }}>
             <Card sx={{ flexGrow: 1, height: "100%" }}>
               <CardContent>
                 <CharacterSheetTabs />
