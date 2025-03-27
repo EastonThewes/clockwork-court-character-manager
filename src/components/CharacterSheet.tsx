@@ -13,7 +13,6 @@ import { Add, Close } from "@mui/icons-material";
 import { useCharacter } from "./CharacterContext";
 import CharacterInfo from "./CharacterInfo";
 import CharacterKnacks from "./CharacterKnacks";
-import CharacterEndeavorDice from "./CharacterEndeavorDice";
 import CharacterHealth from "./CharacterHealth";
 import CharacterDrives from "./CharacterDrives";
 import CharacterSkills from "./CharacterSkills";

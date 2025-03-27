@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useCharacter } from "./CharacterContext";

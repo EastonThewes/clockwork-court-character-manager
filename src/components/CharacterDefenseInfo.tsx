@@ -1,20 +1,10 @@
 import { useCharacter } from "./CharacterContext";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { Character } from "./CharacterModel";
 
 const CharacterDefenseInfo = () => {
   const { characters, activeCharacter, updateCharacter } = useCharacter();
   const character = characters[activeCharacter] || { health: {} };
-
-  const handleChange = (key: keyof Character["health"], value: number) => {
-    updateCharacter(activeCharacter, {
-      health: {
-        ...character.health,
-        [key]: value,
-      },
-    });
-  };
 
   if (!character || !character.traits) {
     return <div>Loading character...</div>; // Handle missing data gracefully
