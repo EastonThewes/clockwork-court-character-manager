@@ -23,41 +23,24 @@ const CharacterDrives = () => {
   }
 
   return (
-    <Grid container spacing={1} sx={{ height: "100%" }}>
-      {/* Drives */}
-      <Grid size={12} sx={{ display: "flex", flexDirection: "column", height: "50%" }}>
-        <Typography variant="h6">Drives</Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          {[0, 1, 2].map((index) => (
-            <TextField
-              key={`drive-${index}`}
-              onChange={(e) => handleChange("drives", index, e.target.value)}
-              value={character.aspect.drives[index] || ""}
-              placeholder={`Drive ${index + 1}`}
-              fullWidth
-              sx={{ height: "2rem", "& .MuiInputBase-root": { height: "100%" } }}
-            />
-          ))}
-        </Box>
-      </Grid>
-
-      {/* Troubles */}
-      <Grid size={12} sx={{ display: "flex", flexDirection: "column", height: "50%" }}>
-        <Typography variant="h6">Troubles</Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          {[0, 1, 2].map((index) => (
-            <TextField
-              key={`trouble-${index}`}
-              onChange={(e) => handleChange("troubles", index, e.target.value)}
-              value={character.aspect.troubles[index] || ""}
-              placeholder={`Trouble ${index + 1}`}
-              fullWidth
-              sx={{ height: "2rem", "& .MuiInputBase-root": { height: "100%" } }}
-            />
-          ))}
-        </Box>
-      </Grid>
-    </Grid>
+    <Grid container spacing={1} sx={{ flexGrow: 1, height: '100%' }}>
+  {/* Drives */}
+  <Grid size={12} sx={{ flexGrow: 1 }}>
+    <Typography variant="h6">Drives</Typography>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 1, flexGrow: 1 }}>
+      {[0, 1, 2].map((index) => (
+        <TextField
+          key={`drive-${index}`}
+          onChange={(e) => handleChange("drives", index, e.target.value)}
+          value={character.aspect.drives[index] || ""}
+          placeholder={`Drive ${index + 1}`}
+          fullWidth
+          sx={{ height: "2rem", "& .MuiInputBase-root": { height: "100%" }, flexGrow: 1 }}
+        />
+      ))}
+    </Box>
+  </Grid>
+</Grid>
   );
 };
 

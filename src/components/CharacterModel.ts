@@ -13,6 +13,7 @@ export class Character {
     manueversInvocations: ManueverInvocation[] = [];
     advantages: Advantage[] = [];
     weapons: Weapon[] = [];
+    buffs: Buff[] = [];
 }
 
 export class Traits {
@@ -34,12 +35,11 @@ export class Knacks {
 }
 
 export class Health {
-    [key: string]: number; // ? Allows indexing by a string
+    [key: string]: number | string;  // This allows both numbers and strings as values
     wounds: number = 0;
     maxWounds: number = 0;
-    woundCheck: number = 0;
+    woundCheck: string = ''; // No error, because we now allow string values too
 }
-
 export class Aspect {
     drives: string[] = [];
     troubles: string[] = [];
@@ -55,6 +55,7 @@ export class Skill {
 
 export class Archetype {
     archetype: string = '';
+    style: string = '';
     initiate: string = '';
     adept: string = '';
     master: string = '';
@@ -78,8 +79,14 @@ export class Advantage {
 
 
 export class Weapon {
-    qualities: string = '';
+    size: string = '';
+    weight: string = '';
+    style: string = '';
     modifiers: string = '';
     attack: string = '';
     damage: string = '';
+}
+
+export class Buff {
+    description: string = '';
 }

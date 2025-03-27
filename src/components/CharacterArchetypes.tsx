@@ -1,5 +1,5 @@
 import { useCharacter } from "./CharacterContext";
-import { TextField, Typography, Box, IconButton } from "@mui/material";
+import { TextField, Typography, Box, IconButton, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -12,18 +12,18 @@ const CharacterArchetypes = () => {
   // Ensure character.archetypes exists
   useEffect(() => {
     if (!character.archetypes) {
-      updateCharacter(activeCharacter, { archetypes:  []  });
+      updateCharacter(activeCharacter, { archetypes: [] });
     }
   }, [character, activeCharacter, updateCharacter]);
 
   const archetypesList = Array.isArray(character.archetypes) ? character.archetypes : [];
 
-  const [newArchetype, setNewArchetype] = useState({ archetype: "", initiate: "", adept: "", master: "" });
+  const [newArchetype, setNewArchetype] = useState({ archetype: "", style: "", initiate: "", adept: "", master: "" });
 
   const handleArchetypeChange = (index: number, field: keyof typeof newArchetype, value: string) => {
     const updatedArchetypes = [...archetypesList];
     updatedArchetypes[index] = { ...updatedArchetypes[index], [field]: value };
-    updateCharacter(activeCharacter, { archetypes: updatedArchetypes  });
+    updateCharacter(activeCharacter, { archetypes: updatedArchetypes });
   };
 
   const handleNewArchetypeChange = (field: keyof typeof newArchetype, value: string) => {
@@ -33,15 +33,15 @@ const CharacterArchetypes = () => {
   const addNewArchetype = () => {
     if (newArchetype.archetype.trim() !== "") {
       updateCharacter(activeCharacter, {
-        archetypes:  [...archetypesList, newArchetype] ,
+        archetypes: [...archetypesList, newArchetype],
       });
-      setNewArchetype({ archetype: "", initiate: "", adept: "", master: "" }); // Reset input fields
+      setNewArchetype({ archetype: "", style: "", initiate: "", adept: "", master: "" }); // Reset input fields
     }
   };
 
   const removeArchetype = (index: number) => {
     const updatedArchetypes = archetypesList.filter((_, i) => i !== index);
-    updateCharacter(activeCharacter, { archetypes: updatedArchetypes  });
+    updateCharacter(activeCharacter, { archetypes: updatedArchetypes });
   };
 
   return (
@@ -56,37 +56,56 @@ const CharacterArchetypes = () => {
 
         {archetypesList.map((archetype, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={2}>
+            <Grid size={1}>
               <TextField
                 value={archetype.archetype}
                 onChange={(e) => handleArchetypeChange(index, "archetype", e.target.value)}
                 fullWidth
+                size="small"
                 label="Archetype"
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={1}>
               <TextField
-                value={archetype.initiate}
-                onChange={(e) => handleArchetypeChange(index, "initiate", e.target.value)}
+                value={archetype.style}
+                onChange={(e) => handleArchetypeChange(index, "style", e.target.value)}
                 fullWidth
-                label="Initiate"
+                size="small"
+                label="Style"
               />
             </Grid>
             <Grid size={3}>
-              <TextField
-                value={archetype.adept}
-                onChange={(e) => handleArchetypeChange(index, "adept", e.target.value)}
-                fullWidth
-                label="Adept"
-              />
+              <Tooltip title={archetype.initiate} arrow>
+                <TextField
+                  value={archetype.initiate}
+                  onChange={(e) => handleArchetypeChange(index, "initiate", e.target.value)}
+                  fullWidth
+                  size="small"
+                  label="Initiate"
+                />
+              </Tooltip>
             </Grid>
             <Grid size={3}>
-              <TextField
-                value={archetype.master}
-                onChange={(e) => handleArchetypeChange(index, "master", e.target.value)}
-                fullWidth
-                label="Master"
-              />
+              <Tooltip title={archetype.adept} arrow>
+                <TextField
+                  value={archetype.adept}
+                  onChange={(e) => handleArchetypeChange(index, "adept", e.target.value)}
+                  fullWidth
+                  size="small"
+                  label="Adept"
+                />
+              </Tooltip>
+            </Grid>
+            <Grid size={3}>
+              <Tooltip title={archetype.master} arrow>
+                <TextField
+                  value={archetype.master}
+                  onChange={(e) => handleArchetypeChange(index, "master", e.target.value)}
+                  fullWidth
+                  size="small"
+                  label="Master"
+                />
+              </Tooltip>
             </Grid>
             <Grid size={1}>
               <IconButton onClick={() => removeArchetype(index)}>
@@ -98,41 +117,60 @@ const CharacterArchetypes = () => {
 
         {/* New Archetype Row */}
         <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={2}>
+          <Grid size={1}>
             <TextField
               value={newArchetype.archetype}
               onChange={(e) => handleNewArchetypeChange("archetype", e.target.value)}
               placeholder="New Archetype"
               fullWidth
+              size="small"
               label="Archetype"
             />
           </Grid>
-          <Grid size={3}>
+          <Grid size={1}>
             <TextField
-              value={newArchetype.initiate}
-              onChange={(e) => handleNewArchetypeChange("initiate", e.target.value)}
-              placeholder="Initiate"
+              value={newArchetype.style}
+              onChange={(e) => handleNewArchetypeChange("style", e.target.value)}
               fullWidth
-              label="Initiate"
+              size="small"
+              label="Style"
             />
           </Grid>
           <Grid size={3}>
-            <TextField
-              value={newArchetype.adept}
-              onChange={(e) => handleNewArchetypeChange("adept", e.target.value)}
-              placeholder="Adept"
-              fullWidth
-              label="Adept"
-            />
+            <Tooltip title={newArchetype.initiate} arrow>
+              <TextField
+                value={newArchetype.initiate}
+                onChange={(e) => handleNewArchetypeChange("initiate", e.target.value)}
+                placeholder="Initiate"
+                fullWidth
+                size="small"
+                label="Initiate"
+              />
+            </Tooltip>
           </Grid>
           <Grid size={3}>
-            <TextField
-              value={newArchetype.master}
-              onChange={(e) => handleNewArchetypeChange("master", e.target.value)}
-              placeholder="Master"
-              fullWidth
-              label="Master"
-            />
+            <Tooltip title={newArchetype.adept} arrow>
+              <TextField
+                value={newArchetype.adept}
+                onChange={(e) => handleNewArchetypeChange("adept", e.target.value)}
+                placeholder="Adept"
+                fullWidth
+                size="small"
+                label="Adept"
+              />
+            </Tooltip>
+          </Grid>
+          <Grid size={3}>
+            <Tooltip title={newArchetype.master} arrow>
+              <TextField
+                value={newArchetype.master}
+                onChange={(e) => handleNewArchetypeChange("master", e.target.value)}
+                placeholder="Master"
+                fullWidth
+                size="small"
+                label="Master"
+              />
+            </Tooltip>
           </Grid>
           <Grid size={1}>
             <IconButton onClick={addNewArchetype} disabled={newArchetype.archetype.trim() === ""}>

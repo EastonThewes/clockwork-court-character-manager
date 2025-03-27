@@ -1,5 +1,5 @@
 import { useCharacter } from "./CharacterContext";
-import { TextField, Typography, Box, IconButton } from "@mui/material";
+import { TextField, Typography, Box, IconButton, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -66,16 +66,20 @@ const CharacterAdvantages = () => {
                 value={advantage.name}
                 onChange={(e) => handleAdvantageChange(index, "name", e.target.value)}
                 fullWidth
+                size="small"
                 label="Name"
               />
             </Grid>
             <Grid size={8}>
-              <TextField
-                value={advantage.description}
-                onChange={(e) => handleAdvantageChange(index, "description", e.target.value)}
-                fullWidth
-                label="Description"
-              />
+              <Tooltip title={advantage.description} arrow>
+                <TextField
+                  value={advantage.description}
+                  onChange={(e) => handleAdvantageChange(index, "description", e.target.value)}
+                  fullWidth
+                  size="small"
+                  label="Description"
+                />
+              </Tooltip>
             </Grid>
             <Grid size={1}>
               <IconButton onClick={() => removeAdvantage(index)}>
@@ -93,17 +97,21 @@ const CharacterAdvantages = () => {
               onChange={(e) => handleNewAdvantageChange("name", e.target.value)}
               placeholder="New Advantage"
               fullWidth
+              size="small"
               label="Name"
             />
           </Grid>
           <Grid size={8}>
-            <TextField
-              value={newAdvantage.description}
-              onChange={(e) => handleNewAdvantageChange("description", e.target.value)}
-              placeholder="Description"
-              fullWidth
-              label="Description"
-            />
+            <Tooltip title={newAdvantage.description} arrow>
+              <TextField
+                value={newAdvantage.description}
+                onChange={(e) => handleNewAdvantageChange("description", e.target.value)}
+                placeholder="Description"
+                fullWidth
+                size="small"
+                label="Description"
+              />
+            </Tooltip>
           </Grid>
           <Grid size={1}>
             <IconButton onClick={addNewAdvantage} disabled={newAdvantage.name.trim() === ""}>

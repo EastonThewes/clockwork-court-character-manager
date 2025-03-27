@@ -42,8 +42,9 @@ const CharacterSkills = () => {
   };
 
   return (
-    <Box sx={{ maxHeight: 300, overflow: "auto", p: 1 }}>
-      <Typography variant="h6">Skills</Typography>
+    <Box sx={{ maxHeight:'45vh' }}>
+      <Typography variant="h6" mb={1}>Skills</Typography>
+      <Box sx={{maxHeight:'40vh',overflow:'auto', pt:1}}>
       <Grid2 container spacing={1}>
         {skillsList.length === 0 && (
           <Typography variant="body2" sx={{ width: "100%", textAlign: "center", mb: 1 }}>
@@ -52,13 +53,14 @@ const CharacterSkills = () => {
         )}
 
         {skillsList.map((skill, index) => (
-          <Grid2 key={index} container  size={12} spacing={1}>
+          <Grid2 key={index} container  size={12} spacing={1} >
             <Grid2  size={7}>
               <TextField
                 value={skill.skill}
                 onChange={(e) => handleSkillChange(index, "skill", e.target.value)}
                 fullWidth
                 label="Skill"
+                size="small"
               />
             </Grid2>
             <Grid2  size={3}>
@@ -68,6 +70,7 @@ const CharacterSkills = () => {
                 onChange={(e) => handleSkillChange(index, "rank", +e.target.value)}
                 fullWidth
                 label="Rank"
+                size="small"
                 sx={{
                   "& input": {
                     textAlign: "center",
@@ -92,6 +95,7 @@ const CharacterSkills = () => {
               onChange={(e) => handleNewSkillChange("skill", e.target.value)}
               fullWidth
               label="Skill"
+              size="small"
             />
           </Grid2>
           <Grid2  size={3}>
@@ -101,6 +105,7 @@ const CharacterSkills = () => {
               onChange={(e) => handleNewSkillChange("rank", +e.target.value)}
               fullWidth
               label="Rank"
+              size="small"
               sx={{
                 "& input": {
                   textAlign: "center",
@@ -117,6 +122,7 @@ const CharacterSkills = () => {
           </Grid2>
         </Grid2>
       </Grid2>
+      </Box>
     </Box>
   );
 };

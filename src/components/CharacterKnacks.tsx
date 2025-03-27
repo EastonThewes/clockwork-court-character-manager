@@ -30,6 +30,7 @@ const CharacterKnacks = () => {
             label={knack.charAt(0).toUpperCase() + knack.slice(1)}
             type="number"
             fullWidth
+            size="small"
             sx={{
               "& input[type=number]": {
                 appearance: "textfield",

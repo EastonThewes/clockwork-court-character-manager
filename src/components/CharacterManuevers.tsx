@@ -1,5 +1,5 @@
 import { useCharacter } from "./CharacterContext";
-import { TextField, Typography, Box, IconButton } from "@mui/material";
+import { TextField, Typography, Box, IconButton, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -62,6 +62,7 @@ const CharacterManeuvers = () => {
                 value={maneuver.name}
                 onChange={(e) => handleManeuverChange(index, "name", e.target.value)}
                 fullWidth
+                size="small"
                 label="Name"
               />
             </Grid>
@@ -70,6 +71,7 @@ const CharacterManeuvers = () => {
                 value={maneuver.roll}
                 onChange={(e) => handleManeuverChange(index, "roll", e.target.value)}
                 fullWidth
+                size="small"
                 label="Roll"
               />
             </Grid>
@@ -78,16 +80,20 @@ const CharacterManeuvers = () => {
                 value={maneuver.action}
                 onChange={(e) => handleManeuverChange(index, "action", e.target.value)}
                 fullWidth
+                size="small"
                 label="Action"
               />
             </Grid>
             <Grid size={6}>
-              <TextField
-                value={maneuver.description}
-                onChange={(e) => handleManeuverChange(index, "description", e.target.value)}
-                fullWidth
-                label="Description"
-              />
+              <Tooltip title={maneuver.description} arrow>
+                <TextField
+                  value={maneuver.description}
+                  onChange={(e) => handleManeuverChange(index, "description", e.target.value)}
+                  fullWidth
+                  size="small"
+                  label="Description"
+                />
+              </Tooltip>
             </Grid>
             <Grid size={1}>
               <IconButton onClick={() => removeManeuver(index)}>
@@ -105,6 +111,7 @@ const CharacterManeuvers = () => {
               onChange={(e) => handleNewManeuverChange("name", e.target.value)}
               placeholder="New Maneuver"
               fullWidth
+              size="small"
               label="Name"
             />
           </Grid>
@@ -114,6 +121,7 @@ const CharacterManeuvers = () => {
               onChange={(e) => handleNewManeuverChange("roll", e.target.value)}
               placeholder="Roll"
               fullWidth
+              size="small"
               label="Roll"
             />
           </Grid>
@@ -123,17 +131,21 @@ const CharacterManeuvers = () => {
               onChange={(e) => handleNewManeuverChange("action", e.target.value)}
               placeholder="Action"
               fullWidth
+              size="small"
               label="Action"
             />
           </Grid>
           <Grid size={6}>
-            <TextField
-              value={newManeuver.description}
-              onChange={(e) => handleNewManeuverChange("description", e.target.value)}
-              placeholder="Description"
-              fullWidth
-              label="Description"
-            />
+            <Tooltip  title={newManeuver.description} arrow>
+              <TextField
+                value={newManeuver.description}
+                onChange={(e) => handleNewManeuverChange("description", e.target.value)}
+                placeholder="Description"
+                fullWidth
+                size="small"
+                label="Description"
+              />
+            </Tooltip>
           </Grid>
           <Grid size={1}>
             <IconButton onClick={addNewManeuver} disabled={newManeuver.name.trim() === ""}>

@@ -19,7 +19,9 @@ const CharacterWeapons = () => {
   const weaponsList = Array.isArray(character.weapons) ? character.weapons : [];
 
   const [newWeapon, setNewWeapon] = useState({
-    qualities: "",
+    size: "",
+    weight: "",
+    style: "",
     modifiers: "",
     attack: "",
     damage: "",
@@ -44,11 +46,11 @@ const CharacterWeapons = () => {
 
   const addNewWeapon = () => {
     // Using "qualities" as a required field, adjust if needed
-    if (newWeapon.qualities.trim() !== "") {
+    if (newWeapon.size.trim() !== "") {
       updateCharacter(activeCharacter, {
         weapons: [...weaponsList, newWeapon] ,
       });
-      setNewWeapon({ qualities: "", modifiers: "", attack: "", damage: "" });
+      setNewWeapon({ size: "",weight:"",style:"", modifiers: "", attack: "", damage: "" });
     }
   };
 
@@ -72,14 +74,37 @@ const CharacterWeapons = () => {
 
         {weaponsList.map((weapon, index) => (
           <Grid key={index} container size={12} alignItems="center" spacing={1}>
-            <Grid size={3}>
+            <Grid size={1}>
               <TextField
-                value={weapon.qualities}
+                value={weapon.size}
                 onChange={(e) =>
-                  handleWeaponChange(index, "qualities", e.target.value)
+                  handleWeaponChange(index, "size", e.target.value)
                 }
                 fullWidth
-                label="Qualities"
+                size="small"
+                label="Size"
+              />
+            </Grid>
+            <Grid size={1}>
+              <TextField
+                value={weapon.weight}
+                onChange={(e) =>
+                  handleWeaponChange(index, "weight", e.target.value)
+                }
+                fullWidth
+                size="small"
+                label="Weight"
+              />
+            </Grid>
+            <Grid size={1}>
+              <TextField
+                value={weapon.style}
+                onChange={(e) =>
+                  handleWeaponChange(index, "style", e.target.value)
+                }
+                fullWidth
+                size="small"
+                label="Style"
               />
             </Grid>
             <Grid size={3}>
@@ -89,6 +114,8 @@ const CharacterWeapons = () => {
                   handleWeaponChange(index, "modifiers", e.target.value)
                 }
                 fullWidth
+                size="small"
+
                 label="Modifiers"
               />
             </Grid>
@@ -99,6 +126,8 @@ const CharacterWeapons = () => {
                   handleWeaponChange(index, "attack", e.target.value)
                 }
                 fullWidth
+                size="small"
+
                 label="Attack"
               />
             </Grid>
@@ -109,6 +138,8 @@ const CharacterWeapons = () => {
                   handleWeaponChange(index, "damage", e.target.value)
                 }
                 fullWidth
+                size="small"
+
                 label="Damage"
               />
             </Grid>
@@ -122,15 +153,43 @@ const CharacterWeapons = () => {
 
         {/* New Weapon Row */}
         <Grid container size={12} alignItems="center" spacing={1}>
-          <Grid size={3}>
+          <Grid size={1}>
             <TextField
-              value={newWeapon.qualities}
+              value={newWeapon.size}
               onChange={(e) =>
-                handleNewWeaponChange("qualities", e.target.value)
+                handleNewWeaponChange("size", e.target.value)
               }
-              placeholder="Qualities"
+              placeholder="Size"
               fullWidth
-              label="Qualities"
+              size="small"
+
+              label="Size"
+            />
+          </Grid>
+          <Grid size={1}>
+            <TextField
+              value={newWeapon.weight}
+              onChange={(e) =>
+                handleNewWeaponChange("weight", e.target.value)
+              }
+              placeholder="Weight"
+              fullWidth
+              size="small"
+
+              label="Weight"
+            />
+          </Grid>
+          <Grid size={1}>
+            <TextField
+              value={newWeapon.style}
+              onChange={(e) =>
+                handleNewWeaponChange("style", e.target.value)
+              }
+              placeholder="Style"
+              fullWidth
+              size="small"
+
+              label="Style"
             />
           </Grid>
           <Grid size={3}>
@@ -141,6 +200,8 @@ const CharacterWeapons = () => {
               }
               placeholder="Modifiers"
               fullWidth
+              size="small"
+
               label="Modifiers"
             />
           </Grid>
@@ -152,6 +213,8 @@ const CharacterWeapons = () => {
               }
               placeholder="Attack"
               fullWidth
+              size="small"
+
               label="Attack"
             />
           </Grid>
@@ -163,16 +226,18 @@ const CharacterWeapons = () => {
               }
               placeholder="Damage"
               fullWidth
+              size="small"
+
               label="Damage"
             />
           </Grid>
           <Grid size={1}>
             <IconButton
               onClick={addNewWeapon}
-              disabled={newWeapon.qualities.trim() === ""}
+              disabled={newWeapon.size.trim() === ""}
             >
               <AddCircleIcon
-                color={newWeapon.qualities.trim() !== "" ? "primary" : "disabled"}
+                color={newWeapon.size.trim() !== "" ? "primary" : "disabled"}
               />
             </IconButton>
           </Grid>

@@ -35,12 +35,11 @@ const CharacterEndeavorDice = () => {
     <Box
       sx={{
         display: "flex",
-        alignItems: "center", // Centers vertically
+
         justifyContent: "center", // Centers horizontally
-        gap: 2, // Adds spacing between "Endeavor" and the buttons
+        alignContent:"center"
       }}
     >
-      <Typography variant="h4">Endeavor Dice</Typography>
       {[1, 2, 3].map((num) => (
         <IconButton
           key={num}
@@ -51,8 +50,9 @@ const CharacterEndeavorDice = () => {
                 ? theme.palette.primary.main // Green when selected
                 : theme.palette.grey[500], // Gray when not selected
           }}
+          size="small"
         >
-          <CircleIcon fontSize="large" />
+          <CircleIcon  />
         </IconButton>
       ))}
     </Box>
